@@ -271,3 +271,13 @@ Let's try to use the 3-mod cycles to generate the last row (boards 10,11,12)
 ![answer](./imgs/answer.png)
 
 There. It works, Boards 7 and 12 are the same, and board 12 was gnerated with the rule found above.
+
+(You can also order the grid differently and come to another result with another rule (but it's still 3mod) that works, tbadded)
+
+``` md
+ 1 | 4 | 7 | 10
+ ---------------
+ 2 | 5 | 8 | 11
+ ---------------
+ 3 | 6 | 9 | 12
+```
