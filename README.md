@@ -2,7 +2,7 @@
 
 An attempt to draw and solve the challenge provided from [AE Studio](https://ae.studio/):
 
-![image of challenge](./ae_challenge.png)
+![image of challenge](./imgs/ae_challenge.png)
 
 ## Skip straight to my answer
 
@@ -29,7 +29,7 @@ On each Board, the tiles are blank by default
 - Board arrangements can repeat but seems inconsistent
 - Typed-tile positions can repeat but seems inconsistent
 
-## Deeper observations 
+## Deeper observations
 
 ### Non-linear / inconsistent translations
 
@@ -268,6 +268,6 @@ If it was a 5-modulo pattern, then board 12 should be the same as board 7
 
 Let's try to use the 3-mod cycles to generate the last row (boards 10,11,12)
 
-![answer](./answer.png)
+![answer](./imgs/answer.png)
 
 There. It works, Boards 7 and 12 are the same, and board 12 was gnerated with the rule found above.
