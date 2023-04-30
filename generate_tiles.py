@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import numpy as np
-import math
+import copy
+
 TILE_STATES = {
     "BLANK" : 
     {
@@ -47,15 +48,18 @@ INIT_BLOCK = {
     ])
 }
 
-FILLED_RULE = (1, 1, 2)
-SLASHED_RULE = (3, 2, 2)
+FILLED_RULE_DOWNWARDS = (1, 1, 2)
+SLASHED_RULE_DOWNWARDS = (3, 2, 2)
+
+FILLED_RULE_SIDEWAYS = (4, 4, 5)
+SLASHED_RULE_SIDEWAYS = (1, 1, 1, 1, 1, 0)
 
 class Block():
-    def __init__(self):
-        self.tile_order = TILE_ORDER
-        self.block = INIT_BLOCK
-        self.filled_rule = FILLED_RULE
-        self.slashed_rule = SLASHED_RULE
+    def __init__(self, tile_order, init_block, filled_rule, slashed_rule):
+        self.tile_order = tile_order
+        self.block = copy.deepcopy(init_block)
+        self.filled_rule = filled_rule
+        self.slashed_rule = slashed_rule
         self.sequence_index = 0
         self.apply_tile_vals()
         return
@@ -67,14 +71,13 @@ class Block():
         return
     
     def print_block(self, console_out:bool = None):
-        index = 0
         p: list[int] = [] # list of printables
         for row in self.tile_vals:
             for tile_val in row:
                 printable = [ v["PRINT"] for k,v in TILE_STATES.items() if v["VALUE"] == tile_val ][0]
                 p.append( printable )
         printable = f"""
-        Block # {self.sequence_index}
+        Block # {self.sequence_index + 1}
         {p[0]} {p[1]}
         {p[2]} {p[3]}
         {p[4]} {p[5]}
@@ -110,11 +113,22 @@ class Block():
         self.sequence_index += 1
         return
     
+def iterate_block(block:Block, number_of_sequences):
+    block.apply_tile_vals()
+    block.print_block(True)
+    for _ in range(number_of_sequences):
+        block.sequence_step()
+        block.apply_tile_vals()
+        block.print_block(True)
+    return
+
 if __name__ == "__main__":
-    myblock = Block()
-    myblock.apply_tile_vals()
-    myblock.print_block(True)
-    for _ in range(11):
-        myblock.sequence_step()
-        myblock.apply_tile_vals()
-        myblock.print_block(True)
+    downwards_block = Block(TILE_ORDER, INIT_BLOCK, FILLED_RULE_DOWNWARDS, SLASHED_RULE_DOWNWARDS)
+    sideways_block = Block(TILE_ORDER, INIT_BLOCK, FILLED_RULE_SIDEWAYS, SLASHED_RULE_SIDEWAYS)
+    
+    print("====== DOWNWARDS ======")
+    iterate_block(downwards_block, 45)
+    
+    print("====== SIDEWAYS ======")
+    iterate_block(sideways_block, 54)
+    
