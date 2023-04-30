@@ -337,14 +337,14 @@ Note the repeats at every +18th block. ( I initially thought 45 was the magic nu
 
 #### Here's why:
 
-Considering 6 possible tile positions, any +6 movement is a repeat.
+Considering 6 possible tile positions, any +6 tile movement is a repeat.
 
-- Each WhiteFill cycle has a `1+1+2 -> 4 steps/cycle` so every 3 cycles leads to 12 steps, which is back to the original spot. ie `12 % 6 = 0`. We can figure out that it's 3 cycles by: `LCF(4, 6, 4*6) = LCF(4,6,24) = LCF(2,3,12) = 12` and thus `12 steps / 4 steps/cycle = 3 cycles`.
-- Similarly, Slashes cycle `3+2+2 -> 7 steps/cycle == 1 step/cycle in mod_6`. So, trivially every 6th cycle makes 6 steps. Repeats every 6th.
-- Both of them have 3 operations in a cycle, which correspond to 3 movements in the grid, thus `1 cycle = 1 row`.
-- WhiteFill: 3 cycles. Slashes: 6 cycles. `LCF(3,6,3*6) = LCF(3,6,18) = 6 -> 6 cycles == 18 steps`
+- Each WhiteFill cycle has a `1+1+2 -> 4 tilestep/cycle` so every 3 cycles leads to 12 tile-steps, which is back to the original spot. ie `12 % 6 = 0`. We can figure out that it's 3 cycles by: `LCM(4,6) = 12` and thus `(12 tilestep) / (4 tilestep/cycle) = 3 cycle`.
+- Similarly, Slashes cycle `3+2+2 -> 7 tilestep/cycle == 1 tilestep/cycle in mod_6`. So, trivially every 6th cycle makes 6 tile-steps. ie. Repeats every 6th.
+- Both of them have 3 operations in a cycle, which correspond to 3 movements in the grid, thus `1 cycle = 1 row = 3 block-steps`.
+- WhiteFill: 3 cycles. Slashes: 6 cycles. `LCM(3,6) = 6 -> 6 cycles == 18 block-steps`
 
-> Thus, every +18 steps or every +6 row is a repeat
+> Thus, every +18 block-steps or every +6 row is a repeat
 
 ### Sideways result
 
@@ -356,10 +356,10 @@ Slashes: (1, 1, 1, 1, 1, 0)
 Using the same analysis:
 
 - WhiteFill: `4+4+5 = 13 -> 1 tilestep / whitefill_cycle (3 blocksteps)` which means 6 cycles or 18 blocksteps
-- Slashes: `1+1+1+1+1+0 = 5 -> 5 tilestep / slashes_cycle (6 blocksteps)` which means 6 cycles since `LCF(5,6,5*6) = LCF( 5 , 2*3 , 2*3*5 ) = 2*3*5 = 30 based of prime factors`. This works out to be every `6 cycle * 6 blocksteps/cycle = 36 blocksteps`
-- Whitefill: 18 blocksteps, Slashes: 36 blocksteps. `LCF(18, 36) = 36`
+- Slashes: `1+1+1+1+1+0 = 5 -> 5 tilestep / slashes_cycle (6 blocksteps)` which means 6 cycles since `LCM(5,6) = 30`. This works out to be every `6 cycle * 6 blocksteps/cycle = 36 blocksteps`
+- Whitefill: 18 blocksteps, Slashes: 36 blocksteps. `LCM(18, 36) = 36`
 
-> Therefore repeats occur every +36 blockstep
+> Therefore repeats occur at every +36 block-steps
 
 ### Final notes?
 
